@@ -1,0 +1,64 @@
+/* =========================================================
+   SERVIÇOS (toolbar, busca, tabela, badges, botões)
+   ========================================================= */
+
+.toolbar {
+  display:flex; justify-content:space-between; align-items:center;
+  gap:15px; margin-bottom:25px; flex-wrap:wrap;
+}
+
+.search-box { flex:1; min-width:280px; position:relative; }
+.search-box input {
+  width:100%; height:52px;
+  border:1px solid #dbe3f1; border-radius:14px;
+  padding:0 18px 0 48px; background:white; font-size:14px;
+  outline:none; transition:.2s;
+}
+.search-box input:focus { border-color: var(--azul-primario); box-shadow: 0 0 0 4px rgba(0,70,173,0.08); }
+.search-box i { position:absolute; left:18px; top:17px; color:#94a3b8; }
+
+.toolbar-actions { display:flex; gap:12px; }
+
+.btn-toolbar {
+  height:52px; border:none; border-radius:14px; padding:0 20px;
+  font-weight:700; cursor:pointer; transition:.2s;
+  display:flex; align-items:center; gap:10px;
+}
+.btn-filter { background:white; border:1px solid #dbe3f1; color: var(--cinza-texto); }
+.btn-filter:hover { background:#f8fafc; }
+.btn-new    { background: var(--azul-primario); color:white; }
+.btn-new:hover { background: var(--azul-escuro); }
+
+/* TABELA SERVIÇOS */
+.service-table { width:100%; border-collapse: separate; border-spacing:0; }
+.service-table thead th {
+  background:#f1f6fd !important;
+  padding:18px; font-size:13px; color:#64748b;
+  text-transform:uppercase; letter-spacing:.5px;
+  border-bottom:1px solid #e2e8f0;
+}
+.service-table thead th:first-child { border-top-left-radius:12px; }
+.service-table thead th:last-child  { border-top-right-radius:12px; }
+
+.service-table tbody tr { background:white; transition:.2s; }
+.service-table tbody tr:hover { background: rgba(0,0,0,0.015); }
+.service-table tbody td { padding:18px; border-bottom:1px solid #edf2f7; font-size:14px; }
+.service-table tbody tr:last-child td { border-bottom:none; }
+
+/* BADGES */
+.badge {
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:8px 14px; border-radius:999px; font-size:12px; font-weight:700;
+}
+.badge-warning { background: rgba(255,193,7,0.15); color:#946200; }
+.badge-success { background: rgba(40,167,69,0.15); color:#1f7a35; }
+.badge-primary { background: rgba(0,70,173,0.12); color: var(--azul-primario); }
+.badge-danger  { background: rgba(220,53,69,0.12); color: var(--vermelho-erro); }
+
+/* BOTÃO GERENCIAR */
+.btn-manage {
+  border:none; background: rgba(0,70,173,0.08); color: var(--azul-primario);
+  height:42px; padding:0 18px; border-radius:12px; font-weight:700; cursor:pointer;
+  display:inline-flex; align-items:center; gap:10px; transition:.2s;
+}
+.btn-manage:hover { background: var(--azul-primario); color:white; }
