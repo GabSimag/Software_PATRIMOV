@@ -12,7 +12,7 @@ $pass = ""; // Senha padrão do XAMPP é vazia
 
 try {
     // Criamos a conexão PDO apontando para o seu computador (localhost)
-    $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
+    $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8mb4", $user, $pass);
     
     // Configuramos o PDO para avisar se houver qualquer erro de SQL
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

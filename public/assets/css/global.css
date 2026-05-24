@@ -95,6 +95,11 @@ body.logado .main-content { margin-left: 260px !important; padding: 40px; }
 
 /* GRID PADRÃO */
 .dashboard-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:24px; }
+.dashboard-grid2 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
 .section-spacing{ margin-top:40px; }
 
 /* TABELAS BASE */
@@ -172,4 +177,14 @@ table td { padding:15px; border-bottom:1px solid #eee; font-size:14px; }
   .table-container { overflow-x:auto !important; padding:15px; }
   table { min-width: 500px; }
   .login-container { width:90% !important; max-width:320px !important; }
+  @media (max-width: 1100px) {
+  .dashboard-grid2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .dashboard-grid2 {
+    grid-template-columns: 1fr;
+  }
+}
 }

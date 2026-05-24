@@ -1,0 +1,44 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 999;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-content {
+  width: 100%;
+  max-width: 500px;
+
+  background: white;
+  border-radius: 18px;
+
+  padding: 24px;
+}
+
+.modal-header {
+  margin-bottom: 20px;
+}
+
+.modal-body textarea {
+  width: 100%;
+  border-radius: 12px;
+  padding: 12px;
+  resize: vertical;
+}
+
+.modal-actions {
+  margin-top: 20px;
+
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}

@@ -1,7 +1,7 @@
 <?php
 header("Content-type: text/css; charset=UTF-8");
 
-$parts = ['global.css', 'sidebar.css', 'login.css', 'home.css', 'servicos.css'];
+$parts = ['global.css', 'sidebar.css', 'login.css', 'home.css', 'servicos.css','forms.css','modals.css'];
 foreach ($parts as $p) {
     $file = __DIR__ . '/' . $p;
     if (is_file($file)) {

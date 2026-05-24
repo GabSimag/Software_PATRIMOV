@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 } else {
     // Se tentarem acessar esse arquivo direto pelo navegador, eu mando de volta
-    header("Location: ../index.php");
+    header("Location: ../../public/index.php");
     exit();
 }
 ?>

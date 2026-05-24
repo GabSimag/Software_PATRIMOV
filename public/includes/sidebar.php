@@ -31,13 +31,24 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
                     <span>1. Home</span>
                 </a>
             </li>
+            <li class="<?= $paginaAtual == 'patrimonios.php' ? 'active' : '' ?>">
+                <a href="patrimonios.php">
+                    <i class="fas fa-boxes"></i>
+                    <span>2. Patrimônios</span>
+                </a>
+            </li>
             <li class="<?= $paginaAtual == 'servicos.php' ? 'active' : '' ?>">
                 <a href="servicos.php">
                     <i class="fas fa-tools"></i>
-                    <span>2. Serviços</span>
+                    <span>3. Serviços</span>
                 </a>
             </li>
-
+            <li class="<?= $paginaAtual == 'categorias.php' ? 'active' : '' ?>">
+                <a href="categorias.php">
+                    <i class="fas fa-tags"></i>
+                    <span>Categorias</span>
+                </a>
+            </li>
             <li class="<?= $paginaAtual == 'cadastros.php' ? 'active' : '' ?>">
                 <a href="cadastros.php">
                     <i class="fas fa-user-plus"></i>
