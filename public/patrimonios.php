@@ -90,6 +90,4 @@ require_once '../config/database.php';
     </div>
     <?php include 'includes/modals/modal_baixa_patrimonio.php'; ?>
     <script src="assets/js/patrimonios.js"></script>
-</body>
-
-</html>
+<?php include 'includes/footer.php'; ?>

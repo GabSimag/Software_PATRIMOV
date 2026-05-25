@@ -18,282 +18,414 @@ require_once '../api/auth/check.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Sistema Patrimonial</title>
 
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/css.php">
 </head>
 
 <body class="logado">
 
-    <?php include 'includes/sidebar.php'; ?>
+<?php include 'includes/sidebar.php'; ?>
 
-    <div class="main-content">
+<div class="main-content">
 
-        <div class="home-grid">
+    <div class="home-grid">
 
-            <!-- COLUNA PRINCIPAL -->
+        <div>
 
-            <div>
+            <div class="home-panel">
 
-                <div class="home-panel">
+                <div class="home-header">
 
-                    <div class="home-header">
+                    <div class="home-user">
+                        <h1>Bem-vindo ao Sistema</h1>
 
-                        <div class="home-user">
-
-                            <h1>Bem-vindo ao Sistema</h1>
-
-                            <p>
-                                Gerencie patrimônios, usuários,
-                                movimentações e relatórios.
-                            </p>
-
-                        </div>
-
-                        <div class="home-badge">
-
-                            Sistema Online
-
-                        </div>
-
+                        <p>
+                            Gerencie patrimônios, usuários,
+                            movimentações e relatórios.
+                        </p>
                     </div>
 
-                    <!-- CARDS -->
-
-                    <div class="dashboard-grid">
-
-                        <div class="card-info card-primary">
-
-                            <div class="card-body">
-
-                                <div class="card-top">
-
-                                    <div class="card-left">
-
-                                        <div class="card-main-icon">
-                                            <i class="fas fa-boxes"></i>
-                                        </div>
-
-                                        <div>
-
-                                            <div class="card-title">
-                                                Patrimônios
-                                            </div>
-
-                                            <div class="card-value">
-                                                248
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                    <i class="fas fa-chart-line card-side-icon"></i>
-
-                                </div>
-
-                                <div class="card-description">
-                                    Total de patrimônios cadastrados no sistema.
-                                </div>
-
-                            </div>
-
-                            <div class="card-footer">
-
-                                <a href="cadastros.php" class="card-link">
-
-                                    Ver detalhes
-
-                                    <i class="fas fa-arrow-right"></i>
-
-                                </a>
-
-                            </div>
-
-                        </div>
-
-                        <div class="card-info card-success">
-
-                            <div class="card-body">
-
-                                <div class="card-top">
-
-                                    <div class="card-left">
-
-                                        <div class="card-main-icon">
-                                            <i class="fas fa-users"></i>
-                                        </div>
-
-                                        <div>
-
-                                            <div class="card-title">
-                                                Usuários
-                                            </div>
-
-                                            <div class="card-value">
-                                                32
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                    <i class="fas fa-user-check card-side-icon"></i>
-
-                                </div>
-
-                                <div class="card-description">
-                                    Usuários ativos no sistema operacional.
-                                </div>
-
-                            </div>
-
-                            <div class="card-footer">
-
-                                <a href="cadastros.php" class="card-link">
-
-                                    Ver detalhes
-
-                                    <i class="fas fa-arrow-right"></i>
-
-                                </a>
-
-                            </div>
-
-                        </div>
-
+                    <div class="home-badge">
+                        Sistema Online
                     </div>
 
                 </div>
 
-                <!-- TABELA -->
+                <div class="dashboard-grid">
 
-                <div class="table-container section-spacing">
+                    <div class="card-info card-primary">
+                        <div class="card-body">
+                            <div class="card-top">
 
-                    <h2 class="page-title">
-                        Últimas Movimentações
-                    </h2>
+                                <div class="card-left">
 
-                    <table class="table-modern">
+                                    <div class="card-main-icon">
+                                        <i class="fas fa-boxes"></i>
+                                    </div>
 
-                        <thead>
+                                    <div>
+                                        <div class="card-title">Patrimônios</div>
 
-                            <tr>
-                                <th>ID</th>
-                                <th>Patrimônio</th>
-                                <th>Responsável</th>
-                                <th>Status</th>
-                            </tr>
+                                        <div class="card-value">
+                                            <span id="totalPatrimonios">0</span>
+                                        </div>
+                                    </div>
 
-                        </thead>
+                                </div>
 
-                        <tbody>
+                                <i class="fas fa-chart-line card-side-icon"></i>
 
-                            <tr>
+                            </div>
 
-                                <td>#102</td>
+                            <div class="card-description">
+                                Total de patrimônios cadastrados no sistema.
+                            </div>
 
-                                <td>Notebook Dell</td>
+                        </div>
 
-                                <td>Gabriel</td>
+                        <div class="card-footer">
+                            <a href="patrimonios.php" class="card-link">
+                                Ver detalhes
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
 
-                                <td>
-                                    <span class="status-success">
-                                        Finalizado
-                                    </span>
-                                </td>
+                    <div class="card-info card-success">
+                        <div class="card-body">
+                            <div class="card-top">
 
-                            </tr>
+                                <div class="card-left">
 
-                            <tr>
+                                    <div class="card-main-icon">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
 
-                                <td>#103</td>
+                                    <div>
+                                        <div class="card-title">Patrimônios Ativos</div>
 
-                                <td>Monitor LG</td>
+                                        <div class="card-value">
+                                            <span id="patrimoniosAtivos">0</span>
+                                        </div>
+                                    </div>
 
-                                <td>Carlos</td>
+                                </div>
 
-                                <td>
-                                    <span class="status-warning">
-                                        Pendente
-                                    </span>
-                                </td>
+                                <i class="fas fa-box-open card-side-icon"></i>
 
-                            </tr>
+                            </div>
 
-                        </tbody>
+                            <div class="card-description">
+                                Patrimônios atualmente ativos no sistema.
+                            </div>
 
-                    </table>
+                        </div>
+
+                        <div class="card-footer">
+                            <a href="patrimonios.php" class="card-link">
+                                Ver detalhes
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card-info card-danger">
+                        <div class="card-body">
+                            <div class="card-top">
+
+                                <div class="card-left">
+
+                                    <div class="card-main-icon">
+                                        <i class="fas fa-box-archive"></i>
+                                    </div>
+
+                                    <div>
+                                        <div class="card-title">Patrimônios Baixados</div>
+
+                                        <div class="card-value">
+                                            <span id="patrimoniosBaixados">0</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <i class="fas fa-ban card-side-icon"></i>
+
+                            </div>
+
+                            <div class="card-description">
+                                Patrimônios baixados do sistema.
+                            </div>
+
+                        </div>
+
+                        <div class="card-footer">
+                            <a href="patrimonios.php" class="card-link">
+                                Ver detalhes
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card-info card-warning">
+                        <div class="card-body">
+                            <div class="card-top">
+
+                                <div class="card-left">
+
+                                    <div class="card-main-icon">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+
+                                    <div>
+                                        <div class="card-title">Serviços Pendentes</div>
+
+                                        <div class="card-value">
+                                            <span id="servicosSolicitados">0</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <i class="fas fa-tools card-side-icon"></i>
+
+                            </div>
+
+                            <div class="card-description">
+                                Serviços aguardando conclusão.
+                            </div>
+
+                        </div>
+
+                        <div class="card-footer">
+                            <a href="servicos.php" class="card-link">
+                                Ver detalhes
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card-info card-primary">
+                        <div class="card-body">
+                            <div class="card-top">
+
+                                <div class="card-left">
+
+                                    <div class="card-main-icon">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+
+                                    <div>
+                                        <div class="card-title">Serviços Concluídos</div>
+
+                                        <div class="card-value">
+                                            <span id="servicosConcluidos">0</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <i class="fas fa-clipboard-check card-side-icon"></i>
+
+                            </div>
+
+                            <div class="card-description">
+                                Patrimoniações concluídas.
+                            </div>
+
+                        </div>
+
+                        <div class="card-footer">
+                            <a href="servicos.php" class="card-link">
+                                Ver detalhes
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card-info card-primary">
+                        <div class="card-body">
+                            <div class="card-top">
+
+                                <div class="card-left">
+
+                                    <div class="card-main-icon">
+                                        <i class="fas fa-coins"></i>
+                                    </div>
+
+                                    <div>
+                                        <div class="card-title">Valor Total</div>
+
+                                        <div class="card-value money-value">
+                                            <span id="valorTotal">R$ 0,00</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <i class="fas fa-coins card-side-icon"></i>
+
+                            </div>
+
+                            <div class="card-description">
+                                Soma total dos patrimônios cadastrados.
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card-info card-success">
+                        <div class="card-body">
+                            <div class="card-top">
+
+                                <div class="card-left">
+
+                                    <div class="card-main-icon">
+                                        <i class="fas fa-wallet"></i>
+                                    </div>
+
+                                    <div>
+                                        <div class="card-title">Valor Ativo</div>
+
+                                        <div class="card-value money-value">
+                                            <span id="valorAtivo">R$ 0,00</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <i class="fas fa-chart-line card-side-icon"></i>
+
+                            </div>
+
+                            <div class="card-description">
+                                Valor patrimonial atualmente ativo.
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card-info card-danger">
+                        <div class="card-body">
+                            <div class="card-top">
+
+                                <div class="card-left">
+
+                                    <div class="card-main-icon">
+                                        <i class="fas fa-money-bill-wave"></i>
+                                    </div>
+
+                                    <div>
+                                        <div class="card-title">Valor Baixado</div>
+
+                                        <div class="card-value money-value">
+                                            <span id="valorBaixado">R$ 0,00</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <i class="fas fa-arrow-down card-side-icon"></i>
+
+                            </div>
+
+                            <div class="card-description">
+                                Valor total de patrimônios baixados.
+                            </div>
+
+                        </div>
+                    </div>
 
                 </div>
 
             </div>
 
-            <!-- LATERAL -->
+            <div class="table-container section-spacing">
 
-            <div>
+                <h2 class="page-title">
+                    Últimas Movimentações
+                </h2>
 
-                <div class="home-panel">
+                <table class="table-modern">
 
-                    <h2 class="page-title">
-                        Acesso Rápido
-                    </h2>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Patrimônio</th>
+                            <th>Responsável</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
 
-                    <div class="quick-actions">
+                    <tbody id="tabelaUltimasMovimentacoes">
+                        <tr>
+                            <td colspan="4">Carregando movimentações...</td>
+                        </tr>
+                    </tbody>
 
-                        <a href="cadastros.php"
-                            class="quick-card">
+                </table>
 
-                            <div class="quick-icon quick-primary">
-                                <i class="fas fa-user-plus"></i>
-                            </div>
+            </div>
 
-                            <div class="quick-title">
-                                Cadastros
-                            </div>
+        </div>
 
-                            <div class="quick-description">
-                                Gerencie usuários e patrimônios.
-                            </div>
+        <div>
 
-                        </a>
+            <div class="home-panel">
 
-                        <a href="movimentacao.php"
-                            class="quick-card">
+                <h2 class="page-title">
+                    Acesso Rápido
+                </h2>
 
-                            <div class="quick-icon quick-warning">
-                                <i class="fas fa-exchange-alt"></i>
-                            </div>
+                <div class="quick-actions">
 
-                            <div class="quick-title">
-                                Movimentação
-                            </div>
+                    <a href="cadastros.php" class="quick-card">
 
-                            <div class="quick-description">
-                                Controle entradas e saídas.
-                            </div>
+                        <div class="quick-icon quick-primary">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
 
-                        </a>
+                        <div class="quick-title">
+                            Cadastros
+                        </div>
 
-                        <a href="relatorios.php"
-                            class="quick-card">
+                        <div class="quick-description">
+                            Gerencie usuários e patrimônios.
+                        </div>
 
-                            <div class="quick-icon quick-success">
-                                <i class="fas fa-chart-bar"></i>
-                            </div>
+                    </a>
 
-                            <div class="quick-title">
-                                Relatórios
-                            </div>
+                    <a href="movimentacoes.php" class="quick-card">
 
-                            <div class="quick-description">
-                                Visualize relatórios completos.
-                            </div>
+                        <div class="quick-icon quick-warning">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
 
-                        </a>
+                        <div class="quick-title">
+                            Movimentação
+                        </div>
 
-                    </div>
+                        <div class="quick-description">
+                            Controle entradas e saídas.
+                        </div>
+
+                    </a>
+
+                    <a href="relatorios.php" class="quick-card">
+
+                        <div class="quick-icon quick-success">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+
+                        <div class="quick-title">
+                            Relatórios
+                        </div>
+
+                        <div class="quick-description">
+                            Visualize relatórios completos.
+                        </div>
+
+                    </a>
 
                 </div>
 
@@ -303,16 +435,7 @@ require_once '../api/auth/check.php';
 
     </div>
 
-    <script>
-        function toggleMenu() {
+</div>
 
-            document
-                .getElementById('sidebar')
-                .classList
-                .toggle('active');
-        }
-    </script>
-
-</body>
-
-</html>
+<script src="assets/js/home.js"></script>
+<?php include 'includes/footer.php'; ?>

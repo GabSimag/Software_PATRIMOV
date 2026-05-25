@@ -79,7 +79,6 @@ $unidades = $pdo->query("SELECT id, nome FROM unidades ORDER BY nome")->fetchAll
                     <label>Modelo</label>
                     <input type="text" name="modelo" value="<?= htmlspecialchars($patrimonio['modelo']) ?>" required>
                 </div>
-
                 <div class="form-group">
                     <label>Categoria</label>
                     <select name="id_categoria" required>
@@ -143,20 +142,20 @@ $unidades = $pdo->query("SELECT id, nome FROM unidades ORDER BY nome")->fetchAll
                     <label>Status</label>
                     <select name="status" required>
                         <option
-                            value="ativo"
-                            <?= $patrimonio['status'] == 'ativo' ? 'selected' : '' ?>>
+                            value="ATIVO"
+                            <?= $patrimonio['status'] == 'ATIVO' ? 'selected' : '' ?>>
                             Ativo
                         </option>
 
                         <option
-                            value="manutencao"
-                            <?= $patrimonio['status'] == 'manutencao' ? 'selected' : '' ?>>
+                            value="MANUTENCAO"
+                            <?= $patrimonio['status'] == 'MANUTENCAO' ? 'selected' : '' ?>>
                             Manutenção
                         </option>
 
                         <option
-                            value="baixado"
-                            <?= $patrimonio['status'] == 'baixado' ? 'selected' : '' ?>>
+                            value="BAIXADO"
+                            <?= $patrimonio['status'] == 'BAIXADO' ? 'selected' : '' ?>>
                             Baixado
                         </option>
                     </select>
@@ -177,6 +176,4 @@ $unidades = $pdo->query("SELECT id, nome FROM unidades ORDER BY nome")->fetchAll
 
     </div>
     <script src="assets/js/patrimonio-editar.js"></script>
-</body>
-
-</html>
+<?php include 'includes/footer.php'; ?>

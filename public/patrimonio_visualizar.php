@@ -19,10 +19,13 @@ $stmt = $pdo->prepare("
     SELECT
         p.*,
         c.nome AS categoria,
-        u.nome AS unidade
+        u.nome AS unidade,
+        ug.sigla AS ug_sigla,
+        ug.nome_fantasia AS ug_nome
     FROM patrimonios p
     INNER JOIN categorias c ON p.id_categoria = c.id
     INNER JOIN unidades u ON p.id_unidade = u.id
+    INNER JOIN ugs ug ON u.id_ug = ug.id
     WHERE p.id = :id
     LIMIT 1
 ");
@@ -73,7 +76,13 @@ if (!$patrimonio) {
                     <label>Descrição</label>
                     <input type="text" value="<?= htmlspecialchars($patrimonio['descricao']) ?>" disabled>
                 </div>
-
+                <div class="form-group">
+                    <label>Valor do Patrimônio</label>
+                    <input
+                        type="text"
+                        value="<?= 'R$ ' . number_format($patrimonio['valor'] ?? 0, 2, ',', '.') ?>"
+                        disabled>
+                </div>
                 <div class="form-group">
                     <label>Marca</label>
                     <input type="text" value="<?= htmlspecialchars($patrimonio['marca'] ?? '-') ?>" disabled>
@@ -88,7 +97,13 @@ if (!$patrimonio) {
                     <label>Categoria</label>
                     <input type="text" value="<?= htmlspecialchars($patrimonio['categoria']) ?>" disabled>
                 </div>
-
+                <div class="form-group">
+                    <label>UG</label>
+                    <input
+                        type="text"
+                        value="<?= htmlspecialchars($patrimonio['ug_sigla'] . ' - ' . $patrimonio['ug_nome']) ?>"
+                        disabled>
+                </div>
                 <div class="form-group">
                     <label>Unidade</label>
                     <input type="text" value="<?= htmlspecialchars($patrimonio['unidade']) ?>" disabled>
@@ -103,8 +118,41 @@ if (!$patrimonio) {
                     <label>Status</label>
                     <input type="text" value="<?= htmlspecialchars($patrimonio['status']) ?>" disabled>
                 </div>
+                <div class="form-group">
+                    <label>Item</label>
+                    <input type="text" value="<?= htmlspecialchars($patrimonio['item'] ?? '-') ?>" disabled>
+                </div>
 
-                <?php if ($patrimonio['status'] === 'baixado'): ?>
+                <div class="form-group">
+                    <label>Número da Nota</label>
+                    <input type="text" value="<?= htmlspecialchars($patrimonio['numero_nota'] ?? '-') ?>" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label>Série</label>
+                    <input type="text" value="<?= htmlspecialchars($patrimonio['serie'] ?? '-') ?>" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label>Data da Nota</label>
+                    <input type="text" value="<?= htmlspecialchars($patrimonio['data_nota'] ?? '-') ?>" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label>Data do Empenho</label>
+                    <input type="text" value="<?= htmlspecialchars($patrimonio['data_empenho'] ?? '-') ?>" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label>Número do Empenho</label>
+                    <input type="text" value="<?= htmlspecialchars($patrimonio['numero_empenho'] ?? '-') ?>" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label>Processo Administrativo</label>
+                    <input type="text" value="<?= htmlspecialchars($patrimonio['numero_processo_administrativo'] ?? '-') ?>" disabled>
+                </div>
+                <?php if ($patrimonio['status'] === 'BAIXADO'): ?>
 
                     <div class="form-group">
                         <label>Data da Baixa</label>
@@ -132,7 +180,4 @@ if (!$patrimonio) {
         </div>
 
     </div>
-
-</body>
-
-</html>
+<?php include 'includes/footer.php'; ?>

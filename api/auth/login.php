@@ -21,11 +21,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['usuario_nome'] = 'Administrador';
         
         // A MÁGICA AQUI: Manda o cara direto pros Serviços após logar
-        header("Location: ../src/servicos.php");
+        header("Location: ../../public/home.php");
         exit();
     } else {
         // Se a senha tiver errada, volta pro index com um aviso
-        header("Location: ../index.php?erro=dados_invalidos");
+        header("Location: ../../public/index.php?erro=dados_invalidos");
         exit();
     }
 } else {

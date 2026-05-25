@@ -1,7 +1,9 @@
 .form-card {
-  background: var(--branco);
+  background: var(--bg-card);
+  color: var(--text-main);
   padding: 28px;
   border-radius: 18px;
+  border: 1px solid var(--border-color);
   box-shadow: 0 10px 30px rgba(0, 70, 173, 0.08);
 }
 
@@ -19,22 +21,29 @@
 
 .form-group label {
   font-weight: 600;
-  color: var(--cinza-texto);
+  color: var(--text-main);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  font-size: 15px;
+  background: var(--bg-card);
+  color: var(--text-main);
 }
 
 .form-group input,
 .form-group select {
   height: 46px;
   padding: 0 14px;
-  border: 1px solid #d6dce8;
-  border-radius: 12px;
-  font-size: 15px;
-  background: #fff;
-  color: var(--cinza-texto);
 }
 
 .form-group input:focus,
-.form-group select:focus {
+.form-group select:focus,
+.form-group textarea:focus {
   outline: none;
   border-color: var(--azul-primario);
   box-shadow: 0 0 0 3px rgba(0, 70, 173, 0.12);
@@ -77,6 +86,103 @@
 
 .btn-secondary:hover {
   background: #dfe6f0;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-input-icon {
+  position: relative;
+}
+
+.form-input-icon i {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--azul-primario);
+  font-size: 15px;
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.form-input-icon input,
+.form-input-icon select {
+  width: 100%;
+  padding-left: 44px;
+}
+
+.form-input-icon textarea {
+  min-height: 160px;
+  padding: 18px 20px 18px 44px;
+  line-height: 1.6;
+}
+
+.textarea-icon i {
+  top: 22px !important;
+  transform: none !important;
+}
+
+.form-textarea {
+  width: 100%;
+  min-height: 170px;
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  padding: 18px 20px;
+  font-size: 15px;
+  line-height: 1.7;
+  background: var(--bg-card);
+  color: var(--text-main);
+  resize: vertical;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.02);
+}
+
+.form-textarea::placeholder,
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--text-secondary);
+}
+
+.form-textarea:focus {
+  border-color: var(--azul-primario);
+  background: var(--bg-card);
+  box-shadow: 0 0 0 4px rgba(0, 70, 173, 0.12);
+}
+
+body.dark-mode .form-card {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+body.dark-mode .form-group input,
+body.dark-mode .form-group select,
+body.dark-mode .form-group textarea,
+body.dark-mode .form-textarea {
+  background: #0f172a;
+  border-color: #334155;
+  color: #f8fafc;
+}
+
+body.dark-mode .form-group input:focus,
+body.dark-mode .form-group select:focus,
+body.dark-mode .form-group textarea:focus,
+body.dark-mode .form-textarea:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.18);
+}
+
+body.dark-mode .btn-secondary {
+  background: #334155;
+  color: #f8fafc;
+}
+
+body.dark-mode .btn-secondary:hover {
+  background: #475569;
 }
 
 @media (max-width: 768px) {

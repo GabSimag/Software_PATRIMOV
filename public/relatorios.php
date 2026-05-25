@@ -144,6 +144,4 @@ try {
             document.getElementById('sidebar').classList.toggle('active');
         }
     </script>
-</body>
-
-</html>
+<?php include 'includes/footer.php'; ?>

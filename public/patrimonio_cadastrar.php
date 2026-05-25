@@ -9,8 +9,8 @@ if (!isset($_SESSION['usuario_id'])) {
 require_once '../api/auth/check.php';
 require_once '../config/database.php';
 
-$categorias = $pdo->query("SELECT id, nome FROM categorias ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
-$unidades = $pdo->query("SELECT id, nome FROM unidades ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
+$categorias = $pdo->query("SELECT id, nome FROM categorias WHERE status = 'ATIVO' ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
+$unidades = $pdo->query("SELECT id, nome FROM unidades WHERE status = 'ATIVO' ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -60,7 +60,6 @@ $unidades = $pdo->query("SELECT id, nome FROM unidades ORDER BY nome")->fetchAll
                     <label>Modelo</label>
                     <input type="text" name="modelo">
                 </div>
-
                 <div class="form-group">
                     <label>Categoria</label>
                     <select name="id_categoria" required>
@@ -72,7 +71,47 @@ $unidades = $pdo->query("SELECT id, nome FROM unidades ORDER BY nome")->fetchAll
                         <?php endforeach; ?>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label>Item</label>
+                    <input type="text" name="item">
+                </div>
 
+                <div class="form-group">
+                    <label>Número da Nota</label>
+                    <input type="text" name="numero_nota">
+                </div>
+
+                <div class="form-group">
+                    <label>Série</label>
+                    <input type="text" name="serie">
+                </div>
+
+                <div class="form-group">
+                    <label>Data da Nota</label>
+                    <input type="date" name="data_nota">
+                </div>
+
+                <div class="form-group">
+                    <label>Data do Empenho</label>
+                    <input type="date" name="data_empenho">
+                </div>
+
+                <div class="form-group">
+                    <label>Número do Empenho</label>
+                    <input type="text" name="numero_empenho">
+                </div>
+
+                <div class="form-group">
+                    <label>Processo Administrativo</label>
+                    <input type="text" name="numero_processo_administrativo">
+                </div>
+                <div class="form-group">
+                    <label>Valor do Patrimônio</label>
+                    <div class="form-input-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                        <input type="number" name="valor" step="0.01" min="0" value="0">
+                    </div>
+                </div>
                 <div class="form-group">
                     <label>Unidade</label>
                     <select name="id_unidade" required>
@@ -121,7 +160,4 @@ $unidades = $pdo->query("SELECT id, nome FROM unidades ORDER BY nome")->fetchAll
     </div>
 
     <script src="assets/js/patrimonio-cadastro.js"></script>
-
-</body>
-
-</html>
+<?php include 'includes/footer.php'; ?>

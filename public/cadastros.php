@@ -192,6 +192,4 @@ try {
             </a>
         </div>
         <script src="assets/js/cadastro.js"></script>
-</body>
-
-</html>
+<?php include 'includes/footer.php'; ?>

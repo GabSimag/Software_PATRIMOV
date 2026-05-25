@@ -69,6 +69,7 @@ require_once '../config/database.php';
 
                 <input
                     type="text"
+                    id="campoBuscaServico"
                     placeholder="Buscar serviço...">
 
             </div>
@@ -84,139 +85,50 @@ require_once '../config/database.php';
 
                 </button>
 
-                <button class="btn-toolbar btn-new">
+                <a href="servico_cadastrar.php"
+                    class="btn-toolbar btn-new"
+                    style="text-decoration:none; display:flex; align-items:center;">
 
                     <i class="fas fa-plus"></i>
 
                     Novo Serviço
 
-                </button>
+                </a>
 
             </div>
 
         </div>
 
-            <!-- TABELA -->
-            <table class="service-table">
+        <!-- TABELA -->
+        <table class="service-table">
 
-                <thead>
+            <thead>
 
-                    <tr>
+                <tr>
 
-                        <th>ID</th>
+                    <th>ID</th>
 
-                        <th>Unidade</th>
+                    <th>Unidade</th>
 
-                        <th>Tipo de Serviço</th>
+                    <th>Tipo de Serviço</th>
 
-                        <th>Status</th>
+                    <th>Status</th>
 
-                        <th>Ações</th>
+                    <th>Ações</th>
 
-                    </tr>
+                </tr>
 
-                </thead>
+            </thead>
 
-                <tbody>
+            <tbody id="tabelaServicos">
+                <tr>
+                    <td colspan="5">Carregando serviços...</td>
+                </tr>
+            </tbody>
 
-                    <tr>
-
-                        <td>#102</td>
-
-                        <td>TI - MATRIZ</td>
-
-                        <td>Formatação</td>
-
-                        <td>
-
-                            <span class="badge badge-warning">
-                                Pendente
-                            </span>
-
-                        </td>
-
-                        <td>
-
-                            <button class="btn-manage">
-
-                                <i class="fas fa-gear"></i>
-
-                                Gerenciar
-
-                            </button>
-
-                        </td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>#103</td>
-
-                        <td>Financeiro</td>
-
-                        <td>Troca de Hardware</td>
-
-                        <td>
-
-                            <span class="badge badge-primary">
-                                Em andamento
-                            </span>
-
-                        </td>
-
-                        <td>
-
-                            <button class="btn-manage">
-
-                                <i class="fas fa-gear"></i>
-
-                                Gerenciar
-
-                            </button>
-
-                        </td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>#104</td>
-
-                        <td>RH</td>
-
-                        <td>Instalação</td>
-
-                        <td>
-
-                            <span class="badge badge-success">
-                                Finalizado
-                            </span>
-
-                        </td>
-
-                        <td>
-
-                            <button class="btn-manage">
-
-                                <i class="fas fa-gear"></i>
-
-                                Gerenciar
-
-                            </button>
-
-                        </td>
-
-                    </tr>
-
-                </tbody>
-
-            </table>
-
-        </div>
+        </table>
 
     </div>
 
-</body>
-
-</html>
+    <script src="assets/js/servico.js"></script>
+<?php include 'includes/footer.php'; ?>

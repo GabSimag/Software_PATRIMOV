@@ -16,8 +16,7 @@
                 <textarea
                     id="motivoBaixa"
                     rows="4"
-                    placeholder="Informe o motivo..."
-                ></textarea>
+                    placeholder="Informe o motivo..."></textarea>
             </div>
 
         </div>
@@ -26,15 +25,13 @@
 
             <button
                 class="btn-secondary"
-                onclick="fecharModalBaixa()"
-            >
+                onclick="fecharModalBaixa()">
                 Cancelar
             </button>
 
             <button
                 class="btn-primary"
-                onclick="confirmarBaixa()"
-            >
+                onclick="confirmarBaixa()">
                 Confirmar Baixa
             </button>
 

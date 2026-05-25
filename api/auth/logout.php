@@ -23,6 +23,6 @@ if (ini_get("session.use_cookies")) {
 session_destroy();
 
 // 5. Redireciona para a raiz (index.php) com um parâmetro de sucesso
-header("Location: ../index.php?status=logoff");
+header("Location: ../../public/index.php?status=logoff");
 exit();
 ?>

@@ -28,19 +28,19 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
             <li class="<?= $paginaAtual == 'home.php' ? 'active' : '' ?>">
                 <a href="home.php">
                     <i class="fas fa-tools"></i>
-                    <span>1. Home</span>
+                    <span>Home</span>
                 </a>
             </li>
             <li class="<?= $paginaAtual == 'patrimonios.php' ? 'active' : '' ?>">
                 <a href="patrimonios.php">
                     <i class="fas fa-boxes"></i>
-                    <span>2. Patrimônios</span>
+                    <span>Patrimônios</span>
                 </a>
             </li>
             <li class="<?= $paginaAtual == 'servicos.php' ? 'active' : '' ?>">
                 <a href="servicos.php">
                     <i class="fas fa-tools"></i>
-                    <span>3. Serviços</span>
+                    <span>Serviços</span>
                 </a>
             </li>
             <li class="<?= $paginaAtual == 'categorias.php' ? 'active' : '' ?>">
@@ -49,29 +49,42 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
                     <span>Categorias</span>
                 </a>
             </li>
+            <li class="<?= $paginaAtual == 'unidades.php' ? 'active' : '' ?>">
+                <a href="unidades.php">
+                    <i class="fas fa-building"></i>
+                    <span>Unidades</span>
+                </a>
+            </li>
+            <li>
+                <a href="ugs.php">
+                    <i class="fas fa-building-columns"></i>
+                    <span>UGs</span>
+                </a>
+            </li>
+            <li class="<?= $paginaAtual == 'movimentacoes.php' ? 'active' : '' ?>">
+                <a href="movimentacoes.php">
+                    <i class="fas fa-right-left"></i>
+                    <span>Movimentações</span>
+                </a>
+            </li>
             <li class="<?= $paginaAtual == 'cadastros.php' ? 'active' : '' ?>">
                 <a href="cadastros.php">
                     <i class="fas fa-user-plus"></i>
-                    <span>3. Cadastros</span>
+                    <span>Cadastros</span>
                 </a>
             </li>
-
-            <li class="<?= $paginaAtual == 'movimentacao.php' ? 'active' : '' ?>">
-                <a href="movimentacao.php">
-                    <i class="fas fa-exchange-alt"></i>
-                    <span>4. Movimentação</span>
-                </a>
-            </li>
-
             <li class="<?= $paginaAtual == 'relatorios.php' ? 'active' : '' ?>">
                 <a href="relatorios.php">
                     <i class="fas fa-file-invoice"></i>
-                    <span>5. Relatórios</span>
+                    <span>Relatórios</span>
                 </a>
             </li>
 
             <div class="sidebar-hr"></div>
-
+            <button id="btnTheme" class="theme-toggle" type="button">
+                <i id="iconTheme" class="fas fa-moon"></i>
+                <span>Tema</span>
+            </button>
             <li>
                 <a href="../api/auth/logout.php" style="color:#ffbaba;">
                     <i class="fas fa-power-off" style="color:#ffbaba;"></i>
