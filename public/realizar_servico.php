@@ -26,6 +26,7 @@ $stmt = $pdo->prepare("
         p.data_nota,
         p.data_empenho,
         p.numero_empenho,
+        p.valor,
         p.numero_processo_administrativo,
         u.nome AS unidade
     FROM servicos s
@@ -130,10 +131,9 @@ if (!$servico) {
                 </div>
 
                 <div class="form-group">
-                    <label>Custo</label>
-                    <input type="number" name="custo" step="0.01" min="0" value="<?= htmlspecialchars($servico['custo'] ?? 0) ?>">
+                    <label>Valor do Patrimônio</label>
+                    <input type="number" name="valor" step="0.01" min="0" value="<?= htmlspecialchars($servico['valor'] ?? 0) ?>">
                 </div>
-
             </div>
 
             <div class="form-group" style="margin-top:20px;">
@@ -155,4 +155,4 @@ if (!$servico) {
     </div>
 
     <script src="assets/js/realizar-servico.js"></script>
-<?php include 'includes/footer.php'; ?>
+    <?php include 'includes/footer.php'; ?>

@@ -17,7 +17,7 @@ try {
     $data_empenho = $_POST['data_empenho'] ?? null;
     $numero_empenho = trim($_POST['numero_empenho'] ?? '');
     $numero_processo = trim($_POST['numero_processo_administrativo'] ?? '');
-    $valor = $_POST['valor'] ?? 0;
+    $valor = str_replace(',', '.', $_POST['valor'] ?? 0);
     $descricao = trim($_POST['descricao'] ?? '');
 
     if (!$id_servico) {
@@ -55,8 +55,8 @@ try {
             data_empenho = :data_empenho,
             numero_empenho = :numero_empenho,
             numero_processo_administrativo = :numero_processo,
-            status = 'ATIVO'
-            valor = :valor,
+            status = 'ATIVO',
+            valor = :valor
         WHERE id = :id_patrimonio
     ");
 
@@ -68,8 +68,8 @@ try {
         ':data_empenho' => $data_empenho ?: null,
         ':numero_empenho' => $numero_empenho,
         ':numero_processo' => $numero_processo,
-        ':id_patrimonio' => $id_patrimonio,
-        ':valor' => $valor
+        ':valor' => $valor,
+        ':id_patrimonio' => $id_patrimonio
     ]);
 
     $stmtServico = $pdo->prepare("
@@ -91,7 +91,6 @@ try {
         'sucesso' => true,
         'mensagem' => 'Patrimoniação concluída com sucesso.'
     ]);
-
 } catch (Exception $e) {
     if ($pdo->inTransaction()) {
         $pdo->rollBack();

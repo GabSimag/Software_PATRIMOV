@@ -12,19 +12,12 @@ async function carregarDashboard() {
 
     document.getElementById("totalPatrimonios").textContent =
       dados.total_patrimonios;
-
     document.getElementById("patrimoniosAtivos").textContent =
       dados.patrimonios_ativos;
-
     document.getElementById("patrimoniosBaixados").textContent =
       dados.patrimonios_baixados;
-
     document.getElementById("servicosSolicitados").textContent =
       dados.servicos_solicitados;
-
-    document.getElementById("servicosAndamento").textContent =
-      dados.servicos_andamento;
-
     document.getElementById("servicosConcluidos").textContent =
       dados.servicos_concluidos;
     document.getElementById("valorTotal").textContent = Number(

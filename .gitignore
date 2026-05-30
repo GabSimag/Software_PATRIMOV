@@ -1,0 +1,14 @@
+# Docker database data
+docker/mysql/
+
+# Environment files
+.env
+
+# Logs
+*.log
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
