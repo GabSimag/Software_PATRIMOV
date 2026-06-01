@@ -17,6 +17,7 @@ if (!$id) {
 
 $stmt = $pdo->prepare("SELECT * FROM categorias WHERE id = :id LIMIT 1");
 $stmt->execute([':id' => $id]);
+
 $categoria = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$categoria) {
@@ -30,6 +31,7 @@ if (!$categoria) {
 <head>
     <meta charset="UTF-8">
     <title>Editar Categoria</title>
+
     <link rel="stylesheet" href="assets/css/css.php">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -37,8 +39,10 @@ if (!$categoria) {
 <body class="logado">
 
     <?php include 'includes/sidebar.php'; ?>
+    <?php include 'includes/topbar.php'; ?>
 
     <div class="main-content">
+
         <header class="header-operacional">
             <div>
                 <h1 class="page-title">Editar Categoria</h1>
@@ -47,9 +51,11 @@ if (!$categoria) {
         </header>
 
         <form id="formCategoriaEditar" class="form-card">
+
             <input type="hidden" name="id" value="<?= $categoria['id'] ?>">
 
             <div class="form-grid">
+
                 <div class="form-group full-width">
                     <label>Nome da Categoria</label>
                     <div class="form-input-icon">
@@ -60,19 +66,29 @@ if (!$categoria) {
 
                 <div class="form-group full-width">
                     <label>Descrição</label>
-                    <textarea class="form-textarea" name="descricao"><?= htmlspecialchars($categoria['descricao'] ?? '') ?></textarea>
+                    <div class="form-input-icon textarea-icon">
+                        <i class="fas fa-align-left"></i>
+                        <textarea
+                            class="form-textarea"
+                            name="descricao"
+                            placeholder="Descreva detalhadamente a finalidade desta categoria patrimonial..."><?= htmlspecialchars($categoria['descricao'] ?? '') ?></textarea>
+                    </div>
                 </div>
+
             </div>
 
             <div class="form-actions">
                 <a href="categorias.php" class="btn-secondary">Cancelar</a>
+
                 <button type="submit" class="btn-primary">
                     <i class="fas fa-save"></i>
                     Salvar Alterações
                 </button>
             </div>
+
         </form>
+
     </div>
 
     <script src="assets/js/categoria-editar.js"></script>
-<?php include 'includes/footer.php'; ?>
+    <?php include 'includes/footer.php'; ?>

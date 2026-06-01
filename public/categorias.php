@@ -24,7 +24,7 @@ require_once '../config/database.php';
 <body class="logado">
 
     <?php include 'includes/sidebar.php'; ?>
-
+    <?php include 'includes/topbar.php'; ?>
     <div class="main-content">
 
         <header class="header-operacional">
@@ -67,7 +67,7 @@ require_once '../config/database.php';
                 </tr>
             </tbody>
         </table>
-
+        <div id="paginacaoCategorias" class="pagination"></div>
     </div>
 
     <script src="assets/js/categorias.js"></script>

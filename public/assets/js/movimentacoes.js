@@ -1,9 +1,10 @@
 const tabelaMovimentacoes = document.getElementById("tabelaMovimentacoes");
-const campoBuscaMovimentacao = document.getElementById(
-  "campoBuscaMovimentacao",
-);
+const campoBuscaMovimentacao = document.getElementById("campoBuscaMovimentacao");
 
 let movimentacoes = [];
+let movimentacoesFiltradas = [];
+let paginaAtualMovimentacoes = 1;
+const itensPorPaginaMovimentacoes = 10;
 
 async function carregarMovimentacoes() {
   try {
@@ -20,7 +21,9 @@ async function carregarMovimentacoes() {
     }
 
     movimentacoes = resultado.dados;
-    renderizarMovimentacoes(movimentacoes);
+    movimentacoesFiltradas = movimentacoes;
+    paginaAtualMovimentacoes = 1;
+    renderizarMovimentacoes();
   } catch (erro) {
     tabelaMovimentacoes.innerHTML = `
       <tr>
@@ -30,19 +33,32 @@ async function carregarMovimentacoes() {
   }
 }
 
-function renderizarMovimentacoes(lista) {
-  if (lista.length === 0) {
+function renderizarMovimentacoes() {
+  if (movimentacoesFiltradas.length === 0) {
     tabelaMovimentacoes.innerHTML = `
       <tr>
         <td colspan="6">Nenhuma movimentação encontrada.</td>
       </tr>
     `;
+
+    renderizarPaginacao(
+      "paginacaoMovimentacoes",
+      0,
+      paginaAtualMovimentacoes,
+      itensPorPaginaMovimentacoes,
+      mudarPaginaMovimentacoes
+    );
+
     return;
   }
 
-  tabelaMovimentacoes.innerHTML = lista
-    .map(
-      (mov) => `
+  const listaPaginada = paginarLista(
+    movimentacoesFiltradas,
+    paginaAtualMovimentacoes,
+    itensPorPaginaMovimentacoes
+  );
+
+  tabelaMovimentacoes.innerHTML = listaPaginada.map(mov => `
     <tr>
       <td>${mov.codigo_patrimonial} - ${mov.patrimonio}</td>
       <td>${mov.tipo_movimentacao ?? "-"}</td>
@@ -51,24 +67,36 @@ function renderizarMovimentacoes(lista) {
       <td>${mov.data_movimentacao ?? "-"}</td>
       <td>${mov.observacao ?? "-"}</td>
     </tr>
-  `,
-    )
-    .join("");
+  `).join("");
+
+  renderizarPaginacao(
+    "paginacaoMovimentacoes",
+    movimentacoesFiltradas.length,
+    paginaAtualMovimentacoes,
+    itensPorPaginaMovimentacoes,
+    mudarPaginaMovimentacoes
+  );
+}
+
+function mudarPaginaMovimentacoes(pagina) {
+  paginaAtualMovimentacoes = pagina;
+  renderizarMovimentacoes();
 }
 
 campoBuscaMovimentacao.addEventListener("input", function () {
   const termo = campoBuscaMovimentacao.value.toLowerCase();
 
-  const filtradas = movimentacoes.filter(
-    (mov) =>
+  movimentacoesFiltradas = movimentacoes.filter(
+    mov =>
       String(mov.codigo_patrimonial).toLowerCase().includes(termo) ||
       String(mov.patrimonio).toLowerCase().includes(termo) ||
       String(mov.tipo_movimentacao).toLowerCase().includes(termo) ||
       String(mov.unidade_origem).toLowerCase().includes(termo) ||
-      String(mov.unidade_destino).toLowerCase().includes(termo),
+      String(mov.unidade_destino).toLowerCase().includes(termo)
   );
 
-  renderizarMovimentacoes(filtradas);
+  paginaAtualMovimentacoes = 1;
+  renderizarMovimentacoes();
 });
 
 carregarMovimentacoes();

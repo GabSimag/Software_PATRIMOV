@@ -27,6 +27,7 @@ $unidades = $pdo->query("SELECT id, nome FROM unidades WHERE status = 'ATIVO' OR
 <body class="logado">
 
     <?php include 'includes/sidebar.php'; ?>
+    <?php include 'includes/topbar.php'; ?>
 
     <div class="main-content">
 
@@ -43,68 +44,107 @@ $unidades = $pdo->query("SELECT id, nome FROM unidades WHERE status = 'ATIVO' OR
 
                 <div class="form-group">
                     <label>Código Patrimonial</label>
-                    <input type="text" name="codigo_patrimonial" required>
+                    <div class="form-input-icon">
+                        <i class="fas fa-barcode"></i>
+                        <input type="text" name="codigo_patrimonial" required>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label>Descrição</label>
-                    <input type="text" name="descricao" required>
+                    <div class="form-input-icon">
+                        <i class="fas fa-align-left"></i>
+                        <input type="text" name="descricao" required>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label>Marca</label>
-                    <input type="text" name="marca">
+                    <div class="form-input-icon">
+                        <i class="fas fa-tag"></i>
+                        <input type="text" name="marca">
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label>Modelo</label>
-                    <input type="text" name="modelo">
+                    <div class="form-input-icon">
+                        <i class="fas fa-cube"></i>
+                        <input type="text" name="modelo">
+                    </div>
                 </div>
+
                 <div class="form-group">
                     <label>Categoria</label>
-                    <select name="id_categoria" required>
-                        <option value="">Selecione...</option>
-                        <?php foreach ($categorias as $categoria): ?>
-                            <option value="<?= $categoria['id'] ?>">
-                                <?= htmlspecialchars($categoria['nome']) ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
+                    <div class="form-input-icon">
+                        <i class="fas fa-tags"></i>
+                        <select name="id_categoria" required>
+                            <option value="">Selecione...</option>
+                            <?php foreach ($categorias as $categoria): ?>
+                                <option value="<?= $categoria['id'] ?>">
+                                    <?= htmlspecialchars($categoria['nome']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
                 </div>
+
                 <div class="form-group">
                     <label>Item</label>
-                    <input type="text" name="item">
+                    <div class="form-input-icon">
+                        <i class="fas fa-box"></i>
+                        <input type="text" name="item">
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label>Número da Nota</label>
-                    <input type="text" name="numero_nota">
+                    <div class="form-input-icon">
+                        <i class="fas fa-file-invoice"></i>
+                        <input type="text" name="numero_nota">
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label>Série</label>
-                    <input type="text" name="serie">
+                    <div class="form-input-icon">
+                        <i class="fas fa-hashtag"></i>
+                        <input type="text" name="serie">
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label>Data da Nota</label>
-                    <input type="date" name="data_nota">
+                    <div class="form-input-icon">
+                        <i class="fas fa-calendar-days"></i>
+                        <input type="date" name="data_nota">
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label>Data do Empenho</label>
-                    <input type="date" name="data_empenho">
+                    <div class="form-input-icon">
+                        <i class="fas fa-calendar-check"></i>
+                        <input type="date" name="data_empenho">
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label>Número do Empenho</label>
-                    <input type="text" name="numero_empenho">
+                    <div class="form-input-icon">
+                        <i class="fas fa-file-signature"></i>
+                        <input type="text" name="numero_empenho">
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label>Processo Administrativo</label>
-                    <input type="text" name="numero_processo_administrativo">
+                    <div class="form-input-icon">
+                        <i class="fas fa-folder-open"></i>
+                        <input type="text" name="numero_processo_administrativo">
+                    </div>
                 </div>
+
                 <div class="form-group">
                     <label>Valor do Patrimônio</label>
                     <div class="form-input-icon">
@@ -112,36 +152,46 @@ $unidades = $pdo->query("SELECT id, nome FROM unidades WHERE status = 'ATIVO' OR
                         <input type="number" name="valor" step="0.01" min="0" value="0">
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label>Unidade</label>
-                    <select name="id_unidade" required>
-                        <option value="">Selecione...</option>
-                        <?php foreach ($unidades as $unidade): ?>
-                            <option value="<?= $unidade['id'] ?>">
-                                <?= htmlspecialchars($unidade['nome']) ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
+                    <div class="form-input-icon">
+                        <i class="fas fa-school"></i>
+                        <select name="id_unidade" required>
+                            <option value="">Selecione...</option>
+                            <?php foreach ($unidades as $unidade): ?>
+                                <option value="<?= $unidade['id'] ?>">
+                                    <?= htmlspecialchars($unidade['nome']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label>Estado de Conservação</label>
-                    <select name="estado_conservacao" required>
-                        <option value="novo">Novo</option>
-                        <option value="bom">Bom</option>
-                        <option value="regular">Regular</option>
-                        <option value="ruim">Ruim</option>
-                        <option value="inservivel">Inservível</option>
-                    </select>
+                    <div class="form-input-icon">
+                        <i class="fas fa-toolbox"></i>
+                        <select name="estado_conservacao" required>
+                            <option value="novo">Novo</option>
+                            <option value="bom">Bom</option>
+                            <option value="regular">Regular</option>
+                            <option value="ruim">Ruim</option>
+                            <option value="inservivel">Inservível</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label>Status</label>
-                    <select name="status" required>
-                        <option value="ativo">Ativo</option>
-                        <option value="manutencao">Manutenção</option>
-                        <option value="baixado">Baixado</option>
-                    </select>
+                    <div class="form-input-icon">
+                        <i class="fas fa-circle-check"></i>
+                        <select name="status" required>
+                            <option value="ativo">Ativo</option>
+                            <option value="manutencao">Manutenção</option>
+                            <option value="baixado">Baixado</option>
+                        </select>
+                    </div>
                 </div>
 
             </div>
@@ -160,4 +210,4 @@ $unidades = $pdo->query("SELECT id, nome FROM unidades WHERE status = 'ATIVO' OR
     </div>
 
     <script src="assets/js/patrimonio-cadastro.js"></script>
-<?php include 'includes/footer.php'; ?>
+    <?php include 'includes/footer.php'; ?>

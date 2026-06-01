@@ -24,6 +24,7 @@ require_once '../config/database.php';
 <body class="logado">
 
     <?php include 'includes/sidebar.php'; ?>
+    <?php include 'includes/topbar.php'; ?>
 
     <div class="main-content">
 
@@ -69,9 +70,9 @@ require_once '../config/database.php';
                 </tr>
             </tbody>
         </table>
-
+        <div id="paginacaoUnidades" class="pagination"></div>
     </div>
 
     <script src="assets/js/unidades.js"></script>
 
-<?php include 'includes/footer.php'; ?>
+    <?php include 'includes/footer.php'; ?>

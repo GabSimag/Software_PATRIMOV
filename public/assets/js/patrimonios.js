@@ -2,6 +2,9 @@ const tabela = document.getElementById("tabelaPatrimonios");
 const campoBusca = document.getElementById("campoBusca");
 
 let patrimonios = [];
+let patrimoniosFiltrados = [];
+let paginaAtualPatrimonios = 1;
+const itensPorPaginaPatrimonios = 10;
 
 async function carregarPatrimonios() {
   try {
@@ -10,71 +13,100 @@ async function carregarPatrimonios() {
 
     if (!resultado.sucesso) {
       tabela.innerHTML = `
-                        <tr>
-                            <td colspan="7">Erro ao carregar patrimônios.</td>
-                        </tr>
-                    `;
+        <tr>
+          <td colspan="7">Erro ao carregar patrimônios.</td>
+        </tr>
+      `;
       return;
     }
 
     patrimonios = resultado.dados;
-    renderizarTabela(patrimonios);
+    patrimoniosFiltrados = patrimonios;
+    paginaAtualPatrimonios = 1;
+    renderizarTabela();
   } catch (erro) {
     tabela.innerHTML = `
-                    <tr>
-                        <td colspan="7">Erro de conexão com a API.</td>
-                    </tr>
-                `;
+      <tr>
+        <td colspan="7">Erro de conexão com a API.</td>
+      </tr>
+    `;
   }
 }
 
-function renderizarTabela(lista) {
-  if (lista.length === 0) {
+function renderizarTabela() {
+  if (patrimoniosFiltrados.length === 0) {
     tabela.innerHTML = `
-                    <tr>
-                        <td colspan="7">Nenhum patrimônio encontrado.</td>
-                    </tr>
-                `;
+      <tr>
+        <td colspan="7">Nenhum patrimônio encontrado.</td>
+      </tr>
+    `;
+
+    renderizarPaginacao(
+      "paginacaoPatrimonios",
+      0,
+      paginaAtualPatrimonios,
+      itensPorPaginaPatrimonios,
+      mudarPaginaPatrimonios
+    );
+
     return;
   }
 
-  tabela.innerHTML = lista
-    .map(
-      (item) => `
-                <tr>
-                    <td>${item.codigo_patrimonial ?? "-"}</td>
-                    <td>${item.descricao ?? "-"}</td>
-                    <td>${item.categoria ?? "-"}</td>
-                    <td>${item.unidade ?? "-"}</td>
-                    <td>${item.estado_conservacao ?? "-"}</td>
-                    <td>
-                        <span class="badge ${classeStatus(item.status)}">
-                            ${formatarStatus(item.status)}
-                        </span>
-                    </td>
-                    <td>
-                        <a href="patrimonio_visualizar.php?id=${item.id}" class="btn-manage" style="text-decoration:none;">
-                            <i class="fas fa-eye"></i>
-                            Ver
-                        </a>
-                        <a href="patrimonio_editar.php?id=${item.id}" class="btn-manage"style="text-decoration:none;">
-                            <i class="fas fa-edit"></i>
-                            Editar
-                        </a>
-                        ${
-                          item.status !== "BAIXADO"
-                            ? `
-                            <a href="#"onclick="abrirModalBaixa(${item.id}); return false;"class="btn-manage"style="text-decoration:none;"><i class="fas fa-archive"></i>
-                                Baixar
-                            </a>
-                            `
-                            : ""
-                        }
-                    </td>
-                </tr>
-            `,
-    )
-    .join("");
+  const listaPaginada = paginarLista(
+    patrimoniosFiltrados,
+    paginaAtualPatrimonios,
+    itensPorPaginaPatrimonios
+  );
+
+  tabela.innerHTML = listaPaginada.map(item => `
+    <tr>
+      <td>${item.codigo_patrimonial ?? "-"}</td>
+      <td>${item.descricao ?? "-"}</td>
+      <td>${item.categoria ?? "-"}</td>
+      <td>${item.unidade ?? "-"}</td>
+      <td>${item.estado_conservacao ?? "-"}</td>
+      <td>
+        <span class="badge ${classeStatus(item.status)}">
+          ${formatarStatus(item.status)}
+        </span>
+      </td>
+      <td>
+        <a href="patrimonio_visualizar.php?id=${item.id}" class="btn-manage" style="text-decoration:none;">
+          <i class="fas fa-eye"></i>
+          Ver
+        </a>
+
+        <a href="patrimonio_editar.php?id=${item.id}" class="btn-manage" style="text-decoration:none;">
+          <i class="fas fa-edit"></i>
+          Editar
+        </a>
+
+        ${
+          item.status !== "BAIXADO"
+            ? `
+              <a href="#" onclick="abrirModalBaixa(${item.id}); return false;" class="btn-manage" style="text-decoration:none;">
+                <i class="fas fa-archive"></i>
+                Baixar
+              </a>
+            `
+            : ""
+        }
+      </td>
+    </tr>
+  `).join("");
+
+  renderizarPaginacao(
+    "paginacaoPatrimonios",
+    patrimoniosFiltrados.length,
+    paginaAtualPatrimonios,
+    itensPorPaginaPatrimonios,
+    mudarPaginaPatrimonios
+  );
+}
+
+function mudarPaginaPatrimonios(pagina) {
+  paginaAtualPatrimonios = pagina;
+  renderizarTabela();
 }
 
 function classeStatus(status) {
@@ -86,6 +118,7 @@ function classeStatus(status) {
 
   return "badge-primary";
 }
+
 function formatarStatus(status) {
   const statusFormatado = String(status).trim().toLowerCase();
 
@@ -95,19 +128,22 @@ function formatarStatus(status) {
 
   return status || "-";
 }
+
 campoBusca.addEventListener("input", function () {
   const termo = campoBusca.value.toLowerCase();
 
-  const filtrados = patrimonios.filter(
-    (item) =>
+  patrimoniosFiltrados = patrimonios.filter(
+    item =>
       String(item.codigo_patrimonial).toLowerCase().includes(termo) ||
       String(item.descricao).toLowerCase().includes(termo) ||
       String(item.categoria).toLowerCase().includes(termo) ||
-      String(item.unidade).toLowerCase().includes(termo),
+      String(item.unidade).toLowerCase().includes(termo)
   );
 
-  renderizarTabela(filtrados);
+  paginaAtualPatrimonios = 1;
+  renderizarTabela();
 });
+
 function abrirModalBaixa(id) {
   document.getElementById("baixaId").value = id;
   document.getElementById("motivoBaixa").value = "";
@@ -141,7 +177,7 @@ async function confirmarBaixa() {
 
     if (resultado.sucesso) {
       fecharModalBaixa();
-      alert("Patrimônio baixado com sucesso!");
+      alertaSucesso("Patrimônio baixado com sucesso!");
       carregarPatrimonios();
     } else {
       alert(resultado.erro || "Erro ao baixar patrimônio.");
@@ -150,4 +186,5 @@ async function confirmarBaixa() {
     alert("Erro de conexão com a API.");
   }
 }
+
 carregarPatrimonios();

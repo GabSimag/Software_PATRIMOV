@@ -24,7 +24,7 @@ require_once '../config/database.php';
 <body class="logado">
 
     <?php include 'includes/sidebar.php'; ?>
-
+    <?php include 'includes/topbar.php'; ?>
     <div class="main-content">
 
         <header class="header-operacional">
@@ -39,6 +39,12 @@ require_once '../config/database.php';
                 <i class="fas fa-search"></i>
                 <input type="text" id="campoBuscaMovimentacao" placeholder="Buscar movimentação...">
             </div>
+            <a href="movimentacao_cadastrar.php"
+                class="btn-toolbar btn-new"
+                style="text-decoration:none;">
+                <i class="fas fa-plus"></i>
+                Nova Movimentação
+            </a>
         </div>
 
         <table class="service-table">
@@ -59,8 +65,8 @@ require_once '../config/database.php';
                 </tr>
             </tbody>
         </table>
-
+        <div id="paginacaoMovimentacoes" class="pagination"></div>
     </div>
 
     <script src="assets/js/movimentacoes.js"></script>
-<?php include 'includes/footer.php'; ?>
+    <?php include 'includes/footer.php'; ?>

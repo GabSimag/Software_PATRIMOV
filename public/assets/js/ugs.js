@@ -2,6 +2,9 @@ const tabelaUgs = document.getElementById("tabelaUgs");
 const campoBuscaUg = document.getElementById("campoBuscaUg");
 
 let ugs = [];
+let ugsFiltradas = [];
+let paginaAtualUgs = 1;
+const itensPorPaginaUgs = 10;
 
 async function carregarUgs() {
   try {
@@ -11,78 +14,106 @@ async function carregarUgs() {
     if (!resultado.sucesso) {
       tabelaUgs.innerHTML = `
         <tr>
-          <td colspan="5">Erro ao carregar UGs.</td>
+          <td colspan="6">Erro ao carregar UGs.</td>
         </tr>
       `;
       return;
     }
 
     ugs = resultado.dados;
-    renderizarUgs(ugs);
+    ugsFiltradas = ugs;
+    paginaAtualUgs = 1;
+    renderizarUgs();
   } catch (erro) {
     tabelaUgs.innerHTML = `
       <tr>
-        <td colspan="5">Erro de conexão com a API.</td>
+        <td colspan="6">Erro de conexão com a API.</td>
       </tr>
     `;
   }
 }
 
-function renderizarUgs(lista) {
-  if (lista.length === 0) {
+function renderizarUgs() {
+  if (ugsFiltradas.length === 0) {
     tabelaUgs.innerHTML = `
       <tr>
-        <td colspan="5">Nenhuma UG encontrada.</td>
+        <td colspan="6">Nenhuma UG encontrada.</td>
       </tr>
     `;
+
+    renderizarPaginacao(
+      "paginacaoUgs",
+      0,
+      paginaAtualUgs,
+      itensPorPaginaUgs,
+      mudarPaginaUgs
+    );
+
     return;
   }
 
-  tabelaUgs.innerHTML = lista
-    .map(
-      (ug) => `
-  <tr>
-    <td>${ug.codigo}</td>
-    <td>${ug.sigla}</td>
-    <td>${ug.nome_fantasia}</td>
-    <td>${ug.origem}</td>
+  const listaPaginada = paginarLista(
+    ugsFiltradas,
+    paginaAtualUgs,
+    itensPorPaginaUgs
+  );
 
-    <td>
-      <span class="badge ${ug.status === "ATIVO" ? "badge-success" : "badge-danger"}">
-        ${ug.status}
-      </span>
-    </td>
+  tabelaUgs.innerHTML = listaPaginada.map(ug => `
+    <tr>
+      <td>${ug.codigo ?? "-"}</td>
+      <td>${ug.sigla ?? "-"}</td>
+      <td>${ug.nome_fantasia ?? "-"}</td>
+      <td>${ug.origem ?? "-"}</td>
 
-    <td>
-      <a href="ug_editar.php?id=${ug.id}" class="btn-manage" style="text-decoration:none;">
-        <i class="fas fa-edit"></i>
-        Editar
-      </a>
+      <td>
+        <span class="badge ${ug.status === "ATIVO" ? "badge-success" : "badge-danger"}">
+          ${ug.status}
+        </span>
+      </td>
 
-      <button class="btn-manage" onclick="alterarStatusUg(${ug.id})">
-        <i class="fas fa-power-off"></i>
-        ${ug.status === "ATIVO" ? "Inativar" : "Ativar"}
-      </button>
-    </td>
-  </tr>
-`,
-    )
-    .join("");
+      <td>
+        <a href="ug_editar.php?id=${ug.id}" class="btn-manage" style="text-decoration:none;">
+          <i class="fas fa-edit"></i>
+          Editar
+        </a>
+
+        <button class="btn-manage" onclick="alterarStatusUg(${ug.id})">
+          <i class="fas fa-power-off"></i>
+          ${ug.status === "ATIVO" ? "Inativar" : "Ativar"}
+        </button>
+      </td>
+    </tr>
+  `).join("");
+
+  renderizarPaginacao(
+    "paginacaoUgs",
+    ugsFiltradas.length,
+    paginaAtualUgs,
+    itensPorPaginaUgs,
+    mudarPaginaUgs
+  );
+}
+
+function mudarPaginaUgs(pagina) {
+  paginaAtualUgs = pagina;
+  renderizarUgs();
 }
 
 campoBuscaUg.addEventListener("input", function () {
   const termo = campoBuscaUg.value.toLowerCase();
 
-  const filtrados = ugs.filter(
-    (ug) =>
+  ugsFiltradas = ugs.filter(
+    ug =>
       String(ug.codigo).toLowerCase().includes(termo) ||
       String(ug.sigla).toLowerCase().includes(termo) ||
       String(ug.nome_fantasia).toLowerCase().includes(termo) ||
-      String(ug.origem).toLowerCase().includes(termo),
+      String(ug.origem).toLowerCase().includes(termo)
   );
 
-  renderizarUgs(filtrados);
+  paginaAtualUgs = 1;
+  renderizarUgs();
 });
+
 async function alterarStatusUg(id) {
   try {
     const dados = new FormData();
@@ -101,7 +132,8 @@ async function alterarStatusUg(id) {
       alert(resultado.erro || "Erro ao alterar status.");
     }
   } catch (erro) {
-    alert("Erro de conexão.");
+    alertaErro("Erro de conexão com a API.");
   }
 }
+
 carregarUgs();

@@ -2,6 +2,9 @@ const tabelaCategorias = document.getElementById("tabelaCategorias");
 const campoBuscaCategoria = document.getElementById("campoBuscaCategoria");
 
 let categorias = [];
+let categoriasFiltradas = [];
+let paginaAtualCategorias = 1;
+const itensPorPaginaCategorias = 10;
 
 async function carregarCategorias() {
   try {
@@ -18,7 +21,9 @@ async function carregarCategorias() {
     }
 
     categorias = resultado.dados;
-    renderizarCategorias(categorias);
+    categoriasFiltradas = categorias;
+    paginaAtualCategorias = 1;
+    renderizarCategorias();
   } catch (erro) {
     tabelaCategorias.innerHTML = `
       <tr>
@@ -28,63 +33,83 @@ async function carregarCategorias() {
   }
 }
 
-function renderizarCategorias(lista) {
-  if (lista.length === 0) {
+function renderizarCategorias() {
+  if (categoriasFiltradas.length === 0) {
     tabelaCategorias.innerHTML = `
       <tr>
         <td colspan="4">Nenhuma categoria encontrada.</td>
       </tr>
     `;
+
+    renderizarPaginacao(
+      "paginacaoCategorias",
+      0,
+      paginaAtualCategorias,
+      itensPorPaginaCategorias,
+      mudarPaginaCategorias
+    );
+
     return;
   }
 
-  tabelaCategorias.innerHTML = lista
-    .map(
-      (categoria) => `
+  const listaPaginada = paginarLista(
+    categoriasFiltradas,
+    paginaAtualCategorias,
+    itensPorPaginaCategorias
+  );
+
+  tabelaCategorias.innerHTML = listaPaginada.map(categoria => `
     <tr>
-  <td>${categoria.nome ?? "-"}</td>
-  <td>${categoria.descricao ?? "-"}</td>
-  <td>
-    <span class="badge ${categoria.status === "ATIVO" ? "badge-success" : "badge-danger"}">
-      ${categoria.status}
-    </span>
-  </td>
-  <td>
-    <a href="categoria_editar.php?id=${categoria.id}" class="btn-manage" style="text-decoration:none;">
-      <i class="fas fa-edit"></i>
-      Editar
-    </a>
-    <button
-  class="btn-manage"
-  onclick="alterarStatusCategoria(${categoria.id})">
+      <td>${categoria.nome ?? "-"}</td>
+      <td>${categoria.descricao ?? "-"}</td>
+      <td>
+        <span class="badge ${categoria.status === "ATIVO" ? "badge-success" : "badge-danger"}">
+          ${categoria.status}
+        </span>
+      </td>
+      <td>
+        <a href="categoria_editar.php?id=${categoria.id}" class="btn-manage" style="text-decoration:none;">
+          <i class="fas fa-edit"></i>
+          Editar
+        </a>
 
-  <i class="fas fa-power-off"></i>
+        <button class="btn-manage" onclick="alterarStatusCategoria(${categoria.id})">
+          <i class="fas fa-power-off"></i>
+          ${categoria.status === "ATIVO" ? "Inativar" : "Ativar"}
+        </button>
+      </td>
+    </tr>
+  `).join("");
 
-  ${categoria.status === "ATIVO" ? "Inativar" : "Ativar"}
+  renderizarPaginacao(
+    "paginacaoCategorias",
+    categoriasFiltradas.length,
+    paginaAtualCategorias,
+    itensPorPaginaCategorias,
+    mudarPaginaCategorias
+  );
+}
 
-</button>
-  </td>
-</tr>
-  `,
-    )
-    .join("");
+function mudarPaginaCategorias(pagina) {
+  paginaAtualCategorias = pagina;
+  renderizarCategorias();
 }
 
 campoBuscaCategoria.addEventListener("input", function () {
   const termo = campoBuscaCategoria.value.toLowerCase();
 
-  const filtradas = categorias.filter(
-    (categoria) =>
+  categoriasFiltradas = categorias.filter(
+    categoria =>
       String(categoria.nome).toLowerCase().includes(termo) ||
-      String(categoria.descricao).toLowerCase().includes(termo),
+      String(categoria.descricao).toLowerCase().includes(termo)
   );
 
-  renderizarCategorias(filtradas);
+  paginaAtualCategorias = 1;
+  renderizarCategorias();
 });
+
 async function alterarStatusCategoria(id) {
-
   try {
-
     const dados = new FormData();
     dados.append("id", id);
 
@@ -96,19 +121,12 @@ async function alterarStatusCategoria(id) {
     const resultado = await resposta.json();
 
     if (resultado.sucesso) {
-
       carregarCategorias();
-
     } else {
-
       alert(resultado.erro || "Erro ao alterar status.");
-
     }
-
   } catch (erro) {
-
-    alert("Erro de conexão.");
-
+    alertaErro("Erro de conexão com a API.");
   }
 }
 

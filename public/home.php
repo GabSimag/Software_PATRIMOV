@@ -25,7 +25,7 @@ require_once '../api/auth/check.php';
 <body class="logado">
 
 <?php include 'includes/sidebar.php'; ?>
-
+<?php include 'includes/topbar.php'; ?>
 <div class="main-content">
 
     <div class="home-grid">

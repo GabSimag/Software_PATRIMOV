@@ -67,30 +67,25 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
                     <span>Movimentações</span>
                 </a>
             </li>
-            <li class="<?= $paginaAtual == 'cadastros.php' ? 'active' : '' ?>">
-                <a href="cadastros.php">
-                    <i class="fas fa-user-plus"></i>
-                    <span>Cadastros</span>
-                </a>
-            </li>
-            <li class="<?= $paginaAtual == 'relatorios.php' ? 'active' : '' ?>">
+            <li>
                 <a href="relatorios.php">
-                    <i class="fas fa-file-invoice"></i>
+                    <i class="fas fa-chart-bar"></i>
                     <span>Relatórios</span>
                 </a>
             </li>
-
-            <div class="sidebar-hr"></div>
-            <button id="btnTheme" class="theme-toggle" type="button">
-                <i id="iconTheme" class="fas fa-moon"></i>
-                <span>Tema</span>
-            </button>
             <li>
-                <a href="../api/auth/logout.php" style="color:#ffbaba;">
-                    <i class="fas fa-power-off" style="color:#ffbaba;"></i>
-                    <span>Sair do Sistema</span>
+                <a href="usuarios.php">
+                    <i class="fas fa-users"></i>
+                    <span>Usuários</span>
                 </a>
             </li>
+            <li>
+                <a href="auditoria.php">
+                    <i class="fas fa-clipboard-list"></i>
+                    <span>Auditoria</span>
+                </a>
+            </li>
+            <div class="sidebar-hr"></div>
 
         <?php else: ?>
 

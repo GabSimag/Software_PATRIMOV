@@ -38,7 +38,7 @@ require_once '../config/database.php';
 
     <!-- SIDEBAR -->
     <?php include 'includes/sidebar.php'; ?>
-
+    <?php include 'includes/topbar.php'; ?>
     <!-- CONTEÚDO -->
     <div class="main-content">
 
@@ -127,7 +127,7 @@ require_once '../config/database.php';
             </tbody>
 
         </table>
-
+        <div id="paginacaoServicos" class="pagination"></div>
     </div>
 
     <script src="assets/js/servico.js"></script>

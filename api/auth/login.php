@@ -1,36 +1,68 @@
 <?php
-/* 
-   Fala, parceiro! Esse aqui é o motor do login. 
-   Ele recebe o que você digitou e decide se te deixa entrar ou não.
-*/
-session_start(); // Fundamental! Sem isso o sistema não "lembra" que você logou.
+session_start();
+
 require_once '../../config/database.php';
- // Conecta no banco pra gente conferir os dados.
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $usuario = $_POST['usuario'];
-    $senha = $_POST['senha'];
-
-    /* 
-       Aqui eu fiz uma validação simples pra gente testar.
-       Depois você pode trocar isso pela consulta real no seu banco de dados.
-    */
-    if ($usuario === 'admin' && $senha === 'admin123') {
-        // Se deu bom, eu guardo os dados na sessão
-        $_SESSION['usuario_id'] = 1;
-        $_SESSION['usuario_nome'] = 'Administrador';
-        
-        // A MÁGICA AQUI: Manda o cara direto pros Serviços após logar
-        header("Location: ../../public/home.php");
-        exit();
-    } else {
-        // Se a senha tiver errada, volta pro index com um aviso
-        header("Location: ../../public/index.php?erro=dados_invalidos");
-        exit();
-    }
-} else {
-    // Se tentarem acessar esse arquivo direto pelo navegador, eu mando de volta
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    
     header("Location: ../../public/index.php");
     exit();
 }
-?>
+
+$usuario = trim($_POST['usuario'] ?? '');
+$senha = $_POST['senha'] ?? '';
+
+if ($usuario === '' || $senha === '') {
+    header("Location: ../../public/index.php?erro=dados_invalidos");
+    exit();
+}
+
+$stmt = $pdo->prepare("
+    SELECT
+        u.id,
+        u.nome,
+        u.usuario,
+        u.senha_hash,
+        u.status,
+        p.nome AS perfil
+    FROM usuarios u
+    INNER JOIN perfis p ON u.id_perfil = p.id
+    WHERE u.usuario = :usuario
+    LIMIT 1
+");
+
+$stmt->execute([
+    ':usuario' => $usuario
+]);
+
+$usuarioBanco = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$usuarioBanco) {
+    header("Location: ../../public/index.php?erro=dados_invalidos");
+    exit();
+}
+
+if ($usuarioBanco['status'] !== 'ATIVO') {
+    header("Location: ../../public/index.php?erro=usuario_inativo");
+    exit();
+}
+
+if (!password_verify($senha, $usuarioBanco['senha_hash'])) {
+    header("Location: ../../public/index.php?erro=dados_invalidos");
+    exit();
+}
+
+$_SESSION['usuario_id'] = $usuarioBanco['id'];
+$_SESSION['usuario_nome'] = $usuarioBanco['nome'];
+$_SESSION['usuario_login'] = $usuarioBanco['usuario'];
+$_SESSION['usuario_perfil'] = $usuarioBanco['perfil'];
+registrarAuditoria(
+    $pdo,
+    $usuarioBanco['id'],
+    'LOGIN',
+    'usuarios',
+    $usuarioBanco['id'],
+    'Login realizado com sucesso.'
+);
+header("Location: ../../public/home.php");
+exit();

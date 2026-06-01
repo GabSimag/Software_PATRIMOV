@@ -59,7 +59,7 @@ if (!$servico) {
 <body class="logado">
 
     <?php include 'includes/sidebar.php'; ?>
-
+    <?php include 'includes/topbar.php'; ?>
     <div class="main-content">
 
         <header class="header-operacional">

@@ -20,29 +20,27 @@ async function carregarDashboard() {
       dados.servicos_solicitados;
     document.getElementById("servicosConcluidos").textContent =
       dados.servicos_concluidos;
-    document.getElementById("valorTotal").textContent = Number(
+    document.getElementById("valorTotal").textContent = formatarMoeda(
       dados.valor_total,
-    ).toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    });
+    );
 
-    document.getElementById("valorAtivo").textContent = Number(
+    document.getElementById("valorAtivo").textContent = formatarMoeda(
       dados.valor_ativo,
-    ).toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    });
+    );
 
-    document.getElementById("valorBaixado").textContent = Number(
+    document.getElementById("valorBaixado").textContent = formatarMoeda(
       dados.valor_baixado,
-    ).toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    });
+    );
   } catch (erro) {
     console.error("Erro ao carregar dashboard:", erro);
   }
+}
+function formatarMoeda(valor) {
+  return Number(valor).toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+    maximumFractionDigits: 0,
+  });
 }
 async function carregarUltimasMovimentacoes() {
   try {

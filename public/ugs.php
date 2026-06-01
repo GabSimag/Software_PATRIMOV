@@ -23,7 +23,7 @@ require_once '../api/auth/check.php';
 <body class="logado">
 
 <?php include 'includes/sidebar.php'; ?>
-
+<?php include 'includes/topbar.php'; ?>
 <div class="main-content">
 
     <header class="header-operacional">
@@ -69,7 +69,7 @@ require_once '../api/auth/check.php';
         </tbody>
 
     </table>
-
+    <div id="paginacaoUgs" class="pagination"></div>
 </div>
 
 <script src="assets/js/ugs.js"></script>

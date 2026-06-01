@@ -45,6 +45,7 @@ if (!$ug) {
 <body class="logado">
 
     <?php include 'includes/sidebar.php'; ?>
+    <?php include 'includes/topbar.php'; ?>
 
     <div class="main-content">
 
@@ -62,69 +63,34 @@ if (!$ug) {
             <div class="form-grid">
 
                 <div class="form-group">
-
                     <label>Código</label>
-
                     <div class="form-input-icon">
-
                         <i class="fas fa-barcode"></i>
-
-                        <input
-                            type="text"
-                            name="codigo"
-                            value="<?= htmlspecialchars($ug['codigo']) ?>"
-                            required>
-
+                        <input type="text" name="codigo" value="<?= htmlspecialchars($ug['codigo']) ?>" required>
                     </div>
-
                 </div>
 
                 <div class="form-group">
-
                     <label>Sigla</label>
-
                     <div class="form-input-icon">
-
                         <i class="fas fa-signature"></i>
-
-                        <input
-                            type="text"
-                            name="sigla"
-                            value="<?= htmlspecialchars($ug['sigla']) ?>"
-                            required>
-
+                        <input type="text" name="sigla" value="<?= htmlspecialchars($ug['sigla']) ?>" required>
                     </div>
-
                 </div>
 
                 <div class="form-group">
-
                     <label>Nome Fantasia</label>
-
                     <div class="form-input-icon">
-
                         <i class="fas fa-building-columns"></i>
-
-                        <input
-                            type="text"
-                            name="nome_fantasia"
-                            value="<?= htmlspecialchars($ug['nome_fantasia']) ?>"
-                            required>
-
+                        <input type="text" name="nome_fantasia" value="<?= htmlspecialchars($ug['nome_fantasia']) ?>" required>
                     </div>
-
                 </div>
 
                 <div class="form-group">
-
                     <label>Origem</label>
-
                     <div class="form-input-icon">
-
                         <i class="fas fa-sitemap"></i>
-
                         <select name="origem" required>
-
                             <option value="Prefeitura" <?= $ug['origem'] === 'Prefeitura' ? 'selected' : '' ?>>
                                 Prefeitura
                             </option>
@@ -144,29 +110,19 @@ if (!$ug) {
                             <option value="Outro" <?= $ug['origem'] === 'Outro' ? 'selected' : '' ?>>
                                 Outro
                             </option>
-
                         </select>
-
                     </div>
-
                 </div>
 
             </div>
 
             <div class="form-actions">
-
-                <a href="ugs.php" class="btn-secondary">
-                    Cancelar
-                </a>
+                <a href="ugs.php" class="btn-secondary">Cancelar</a>
 
                 <button type="submit" class="btn-primary">
-
                     <i class="fas fa-save"></i>
-
                     Salvar Alterações
-
                 </button>
-
             </div>
 
         </form>
@@ -174,5 +130,4 @@ if (!$ug) {
     </div>
 
     <script src="assets/js/ug-editar.js"></script>
-
-<?php include 'includes/footer.php'; ?>
+    <?php include 'includes/footer.php'; ?>

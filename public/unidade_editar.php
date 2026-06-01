@@ -51,7 +51,7 @@ $ugs = $pdo->query("
 <body class="logado">
 
     <?php include 'includes/sidebar.php'; ?>
-
+    <?php include 'includes/topbar.php'; ?>
     <div class="main-content">
 
         <header class="header-operacional">
@@ -166,7 +166,7 @@ $ugs = $pdo->query("
 
                 <div class="form-group full-width">
 
-                    <label>GPS</label>
+                    <label>Coordenadas GPS</label>
 
                     <div class="form-input-icon">
 
@@ -175,7 +175,8 @@ $ugs = $pdo->query("
                         <input
                             type="text"
                             name="gps_coords"
-                            value="<?= htmlspecialchars($unidade['gps_coords'] ?? '') ?>">
+                            value="<?= htmlspecialchars($unidade['gps_coords'] ?? '') ?>"
+                            placeholder="-22.357, -47.384">
 
                     </div>
 
@@ -204,4 +205,4 @@ $ugs = $pdo->query("
     </div>
 
     <script src="assets/js/unidade-editar.js"></script>
-<?php include 'includes/footer.php'; ?>
+    <?php include 'includes/footer.php'; ?>
