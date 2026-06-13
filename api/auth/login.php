@@ -1,10 +1,9 @@
 <?php
 session_start();
-
-require_once '../../config/database.php';
+require_once __DIR__ . '/../../config/database.php';
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    
+
     header("Location: ../../public/index.php");
     exit();
 }
@@ -56,13 +55,6 @@ $_SESSION['usuario_id'] = $usuarioBanco['id'];
 $_SESSION['usuario_nome'] = $usuarioBanco['nome'];
 $_SESSION['usuario_login'] = $usuarioBanco['usuario'];
 $_SESSION['usuario_perfil'] = $usuarioBanco['perfil'];
-registrarAuditoria(
-    $pdo,
-    $usuarioBanco['id'],
-    'LOGIN',
-    'usuarios',
-    $usuarioBanco['id'],
-    'Login realizado com sucesso.'
-);
+
 header("Location: ../../public/home.php");
 exit();
